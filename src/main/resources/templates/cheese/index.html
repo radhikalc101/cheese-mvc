@@ -8,9 +8,16 @@
 
     <p th:unless="${cheeses} and ${cheeses.size()}">no cheese:(</p>
 
-<ul><!--th:each is used as for loop cheese in cheeses.th:text = value of the itaretable variable.-->
-    <li th:each="cheese : ${cheeses}" th:text="${cheese}"></li>
+    <!--<ul><!--th:each is used as for loop cheese in cheeses.th:text = value of the itaretable variable.-->
+    <!--<li th:each="cheese : ${cheeses}" th:text="${cheese}"></li></ul>-->
+    <table th:if="${cheeses} and ${cheeses.size()}">
+        <tr><th>Cheese Name</th><th>Description</th></tr>
+        <tr th:each="mapItem : ${cheeses}">
+            <td th:text="${mapItem.key}">Key</td>
+            <td th:text="${mapItem.value}">Value</td>
+        </tr>
+    </table>
+    <!--<p th:text="${cheeseName + '!' + cheeseDescription}"></p>-->
 
-</ul>
 </body>
 </html>
