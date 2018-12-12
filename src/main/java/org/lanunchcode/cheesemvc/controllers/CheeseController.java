@@ -2,9 +2,13 @@ package org.lanunchcode.cheesemvc.controllers;
 
 import org.lanunchcode.cheesemvc.models.Cheese;
 import org.lanunchcode.cheesemvc.models.CheeseData;
+import org.lanunchcode.cheesemvc.models.CheeseType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
+
+import javax.validation.Valid;
 
 @Controller
 @RequestMapping(value = "cheese")
@@ -26,11 +30,13 @@ public class CheeseController {
     public String displayAddCheeseForm(Model model) {
 
         model.addAttribute("title","Add Cheese");
+        model.addAttribute(new Cheese());
+        model.addAttribute("cheeseTypes", CheeseType.values());
         return "cheese/add";//rendering template
 
     }
     @RequestMapping(value = "add", method = RequestMethod.POST)
-    public String processAddCheeseForm(@ModelAttribute Cheese newCheese) {
+    public String processAddCheeseForm(@ModelAttribute  @Valid  Cheese newCheese, Errors errors, Model model) {
 //        System.out.println("cheeseName :"+ cheeseName);
 //        System.out.println("cheeseDescription :" +cheeseDescription);
 //        Cheese cheese = new Cheese(cheeseName,cheeseDescription );
@@ -44,6 +50,11 @@ public class CheeseController {
         *
         *
         * */
+
+        if(errors.hasErrors()){
+            model.addAttribute("title", "Add Cheese");
+            return "cheese/add";
+        }
 
         CheeseData.add(newCheese);
         return "redirect:";
