@@ -1,9 +1,18 @@
 package org.lanunchcode.cheesemvc.models;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+@Entity
 public class Cheese {
+
+    @Id
+    @GeneratedValue
+    private int id;
 
     @NotNull
     @Size(min = 3, max = 8)
@@ -13,24 +22,32 @@ public class Cheese {
     @Size(min = 1,message = "Enter the discription")
     private String description;
 
-    private CheeseType type;
-
-
-    private int cheeseId;
-    private static int nextId = 1;
-
-
-
-    public Cheese(String name,String description){
-        this();
-        this.name = name;
-        this.description = description;
-
+    public Category getCategory() {
+        return category;
     }
 
-    public Cheese(){
-        cheeseId = nextId;
-        nextId++;
+    public void setCategory(Category category) {
+        this.category = category;
+    }
+
+    @ManyToOne
+    private Category category;
+
+
+    public Cheese(String name,String description,Category category){
+        this.name = name;
+        this.description = description;
+        this.category = category;
+    }
+
+    public Cheese(){ }
+
+    public int getId(){
+        return id;
+    }
+
+    public void setId(int id){ this.id = id;
+
     }
 
     public void  setName(String name){
@@ -48,21 +65,8 @@ public class Cheese {
     public String getDescription(){
         return this.description;
     }
-    public int getCheeseId() {
-        return cheeseId;
-    }
 
-    public void setCheeseId(int cheeseId) {
-        this.cheeseId = cheeseId;
-    }
 
-    public CheeseType getType() {
-        return type;
-    }
-
-    public void setType(CheeseType type) {
-        this.type = type;
-    }
 }
 
 

@@ -14,12 +14,12 @@
 <table class="table" > <!--th:if="${cheeses} and ${cheeses.size()}"-->
     <tr><th>Name</th>
         <th>Description</th>
-        <th>Cheese Type</th>
+        <th>Category</th>
     </tr>
     <tr th:each="cheese : ${cheeses}">
         <td th:text="${cheese.name}">Key</td>
         <td th:text="${cheese.description}">Value</td>
-        <td th:text="${cheese.type.name}"></td>
+        <td th:text="${cheese.category.name}"></td>
     </tr>
 </table>
 <!--<p th:text="${cheeseName + '!' + cheeseDescription}"></p>-->
